@@ -1,0 +1,62 @@
+let fn;
+let d1 = 0;
+let moveB = false;
+let moveA = false;
+let d2 = 360;
+let moveC = false;
+let moceD = false;
+function setup() {
+createCanvas(1000, 1000);
+   fn = new display();
+   
+}
+function draw() {
+    angleMode(DEGREES);
+   background(234, 56, 189);
+    fn.body();
+    fn.mouth();
+}
+function display() {
+  this.body = function() {
+      fill(248, 255, 33);        
+      arc(500, 500, 200, 200, 90, 270);
+  }
+  this.mouth = function() {
+      //botom of mouth
+      if(d1 == 0) {
+          moveA = true;
+          moveB = false;
+         
+      }
+      if(d1 == 60) {
+          moveA = false;
+          moveB = true;
+      }
+      if(moveA == true) {
+          d1 = d1 + 5;
+      }
+      if(moveB == true) {
+          d1 = d1 - 5;
+      }
+      arc(500, 500, 200, 200, d1, 180);
+      //top of mouth
+      if(d2 == 360) {
+          moveC = true;
+          moveD = false;
+         
+      }
+      if(d2 == 300) {
+          moveC = false;
+          moveD = true;
+      }
+      if(moveD == true) {
+          d2 = d2 + 5;
+      }
+      if(moveC == true) {
+          d2 = d2 - 5;
+      }
+      arc(500, 500, 200, 200, 180, d2);
+     
+      
+  }
+}
