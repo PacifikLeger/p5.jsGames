@@ -1,0 +1,93 @@
+let c;
+let hop = false;
+let x = 250;
+let y = 350;
+let speed = 2;
+let xt = 550;
+let yt = 375;
+let start = false;
+let alive = true;
+let triSpeed = 1;
+//let doubleJump = false;
+function setup() {
+    createCanvas(600, 400);
+    c = new cube();
+}
+function draw() {
+   
+    background(56, 189, 213);
+    c.display();
+    c.jump();
+    c.spike();
+    c.start();
+}
+//-----------------------------------------------------------------------------
+
+function cube() { 
+   
+    this.display = function() {
+        fill(255);
+        noStroke();
+        rectMode(CENTER);
+        rect(x, y, 50, 50);
+    }
+    this.jump = function() {
+     if(hop == true)  {
+         speed = speed - 0.04;
+        y = y - speed;
+     }
+      if(y <= 300) {
+          speed = - speed;
+      }
+      if(y > 352) {
+        speed = 0;
+          hop = false;
+          y = 350;
+      }
+       
+      
+    }
+    this.spike = function() {
+        
+        triangle(xt, yt, xt + 12.5, yt - 25, xt + 25, yt);
+        if(start == true) {
+            xt = xt - triSpeed;
+        }
+        if(dist(x, y, xt + 12.5, yt - 25) < 37.5 && alive == true) {
+           textSize(20);
+            triSpeed = 0;
+            text('Game Over! Press down arrow to restart.', 300, 200);
+        }
+        if(alive == false) {
+            xt = 550;
+            start = true;
+            alive = true;
+        }
+        
+    }
+    this.start = function() {
+        strokeWeight(2);
+        stroke(0);
+        textSize(40);
+        textAlign(CENTER, CENTER);
+        if(start == false) {
+        text('Click up arrow to start', 300, 200);
+        }
+        
+    }
+}
+function keyPressed() {
+    if(keyCode == UP_ARROW) {
+        start = true;
+    }
+    if(keyCode == DOWN_ARROW) {
+        alive = false;
+        triSpeed = 1;
+    }
+}
+function mouseClicked() {
+    speed = 2;
+    hop = true;
+    
+}
+//created by Pacifik Leger
